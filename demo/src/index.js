@@ -6,7 +6,7 @@ import en from "react-intl/locale-data/en"
 import pt from "react-intl/locale-data/pt"
 import enUSMessages from "../i18n/en-US_messages.json"
 
-import CsvToApi from "../../src"
+import ReactUploadCsv from "../../src"
 
 addLocaleData([...en, ...pt])
 
@@ -14,7 +14,7 @@ class Demo extends React.Component {
   render() {
     return (
       <IntlProvider locale="en-US" key="en-US" messages={enUSMessages}>
-        <CsvToApi allowedExtensions={["csv"]} />
+        <ReactUploadCsv allowedExtensions={["csv"]} />
       </IntlProvider>
     )
   }

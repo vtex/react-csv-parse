@@ -1,7 +1,3 @@
-# csv-to-api
+# react-upload-csv
 
-[![Travis][build-badge]][build]
-[![npm package][npm-badge]][npm]
-[![Coveralls][coveralls-badge]][coveralls]
-
-Import data from a csv file to your app and your api.
+Display data from a csv file.
