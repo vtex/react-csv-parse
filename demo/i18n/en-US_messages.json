@@ -1,6 +1,5 @@
 {
   "import.form.legend": "Note: headers in your file are required.",
   "import.form.importfile": "Select file ({extensions})",
-  "import.form.fileStatus.error":
-    "No file selected or file extension not allowed."
+  "import.form.fileStatus.error": "File extension not allowed."
 }

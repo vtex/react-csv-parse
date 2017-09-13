@@ -1,72 +1,51 @@
 import React from "react"
-import { intlShape, injectIntl } from "react-intl"
-import { isEmpty } from "ramda"
+import PropTypes from "prop-types"
 
-import { fileExtensionIsValid } from "./utils"
+import Form from "./components/Form"
+import Table from "./components/Table"
 
 import "./styles/input-form.css"
+import "react-table/react-table.css"
 
-class CsvToApi extends React.Component {
+class ReactUploadCsv extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      fileName: "",
-      fileStatus: "",
-      forcePage: 0,
+      tableData: [],
+      tableDataDisplay: [],
     }
   }
 
-  translate = (id, values) => this.props.intl.formatMessage({ id }, values)
-
-  handleFileInputChange = event => {
-    const file = event.target.files[0]
-    // this.props.fileChanged && this.props.fileChanged()
-
-    if (file && fileExtensionIsValid(file, this.props.allowedExtensions)) {
-      this.setState({ fileStatus: "", fileName: file.name })
-      // this.formatFileResult(file)
-    } else {
-      const fileStatus = this.translate("import.form.fileStatus.error")
-      this.setState({ fileStatus, fileName: "" })
-    }
+  setDataToTable = (tableData, tableDataDisplay) => {
+    this.setState({ tableData, tableDataDisplay })
   }
 
   render() {
     return (
-      <form>
-        <legend className="cta-form-legend">
-          {this.translate("import.form.legend")}
-        </legend>
-        <input
-          type="file"
-          name="cta-file"
-          id="cta-file"
-          className="cta-form-fileinput"
-          onChange={this.handleFileInputChange}
-          onClick={this.handleFileInputClick}
+      <div className="ruc-container">
+        <Form
+          apiKeys={this.props.apiKeys}
+          tableRowsLength={this.props.tableRowsLength || 10}
+          setDataToTable={this.setDataToTable}
         />
-
-        <label htmlFor="cta-file" className="cta-form-filelabel">
-          {this.translate("import.form.importfile", {
-            extensions: this.props.allowedExtensions,
-          })}
-        </label>
-
-        {!isEmpty(this.state.fileName) && (
-          <strong className="cta-form-filename">{this.state.fileName}</strong>
-        )}
-
-        {!isEmpty(this.state.fileStatus) && (
-          <span className="cta-form-filestatus">{this.state.fileStatus}</span>
-        )}
-      </form>
+        <Table
+          tableId={this.props.tableId}
+          tableRowsLength={this.props.tableRowsLength || 10}
+          tableColumns={this.props.tableColumns}
+          tableDataDisplay={this.state.tableDataDisplay}
+          tableData={this.state.tableData}
+        />
+      </div>
     )
   }
 }
 
-CsvToApi.propTypes = {
-  intl: intlShape,
+ReactUploadCsv.propTypes = {
+  tableId: PropTypes.string.isRequired,
+  apiKeys: PropTypes.array.isRequired,
+  tableRowsLength: PropTypes.number,
+  tableColumns: PropTypes.array.isRequired,
 }
 
-export default injectIntl(CsvToApi)
+export default ReactUploadCsv
