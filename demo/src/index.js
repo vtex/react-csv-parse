@@ -51,23 +51,26 @@ class Demo extends React.Component {
       },
     ]
 
+    const apiKeys = [
+      "account",
+      "balance",
+      "document",
+      "documentType",
+      "creditLimit",
+      "lastUpdate",
+      "description",
+      "email",
+      "visibleCreditLimit",
+    ]
+
     return (
       <IntlProvider locale="en-US" key="en-US" messages={enUSMessages}>
         <ReactUploadCsv
           tableId="tableId"
           tableRowsLength={10}
           tableColumns={fileColumns}
-          apiKeys={[
-            "account",
-            "balance",
-            "document",
-            "documentType",
-            "creditLimit",
-            "lastUpdate",
-            "description",
-            "email",
-            "visibleCreditLimit",
-          ]}
+          apiKeys={apiKeys}
+          paginationId="paginationId"
         />
       </IntlProvider>
     )

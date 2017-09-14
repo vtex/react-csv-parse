@@ -21,6 +21,7 @@
   "dependencies": {
     "ramda": "^0.24.1",
     "react-intl": "^2.4.0",
+    "react-paginate": "^4.4.3",
     "react-table": "^6.5.3"
   },
   "peerDependencies": {
