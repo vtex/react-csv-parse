@@ -4,15 +4,15 @@ import PropTypes from "prop-types"
 import ReactPaginate from "react-paginate"
 
 class Pagination extends React.Component {
-  constructor(props) {
-    super(props)
+  handlePagination = event => {
+    const selected = event.selected
+    const rows = this.props.tableRowsLength
 
-    this.state = {
-      forcePage: 0,
-    }
+    const startIndex = selected * rows
+    const endIndex = selected === 0 ? rows : selected * rows + rows
+
+    this.props.handlePagination(startIndex, endIndex, selected)
   }
-
-  handlePagination = () => {}
 
   render() {
     return (
@@ -28,7 +28,6 @@ class Pagination extends React.Component {
           onPageChange={this.handlePagination}
           containerClassName={"pagination"}
           activeClassName={"active"}
-          forcePage={this.state.forcePage}
         />
       </div>
     )
@@ -39,6 +38,7 @@ Pagination.propTypes = {
   paginationId: PropTypes.string,
   tableDataLength: PropTypes.number,
   tableRowsLength: PropTypes.number,
+  handlePagination: PropTypes.func.isRequired,
 }
 
 export default Pagination

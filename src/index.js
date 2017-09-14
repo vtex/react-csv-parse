@@ -7,7 +7,7 @@ import Pagination from "./components/Pagination"
 
 import { globalVars } from "./constants.js"
 
-import { isEmpty } from "ramda"
+import { isEmpty, slice } from "ramda"
 
 import "./styles/input-form.css"
 import "./styles/pagination.css"
@@ -25,6 +25,12 @@ class ReactUploadCsv extends React.Component {
 
   setDataToTable = (tableData, tableDataDisplay) => {
     this.setState({ tableData, tableDataDisplay })
+  }
+
+  handlePagination = (startIndex, endIndex, selected) => {
+    const tableDataDisplay = slice(startIndex, endIndex, this.state.tableData)
+
+    this.setState({ tableDataDisplay, forcePage: selected })
   }
 
   render() {
@@ -57,6 +63,7 @@ class ReactUploadCsv extends React.Component {
             paginationId={this.props.paginationId}
             tableDataLength={tableData.length}
             tableRowsLength={rowsLength}
+            handlePagination={this.handlePagination}
           />
         )}
       </div>
