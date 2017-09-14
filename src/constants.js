@@ -1,4 +1,4 @@
-export const globalVars = {
+export const defaults = {
   allowedExtensions: ["csv"],
   defaultTableRows: 10,
 }

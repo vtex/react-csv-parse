@@ -5,7 +5,7 @@ import Form from "./components/Form"
 import Table from "./components/Table"
 import Pagination from "./components/Pagination"
 
-import { globalVars } from "./constants.js"
+import { defaults } from "./constants.js"
 
 import { isEmpty, slice } from "ramda"
 
@@ -37,7 +37,7 @@ class ReactUploadCsv extends React.Component {
     const { tableRowsLength } = this.props
     const { tableData } = this.state
 
-    const rowsLength = this.props.tableRowsLength || globalVars.defaultTableRows
+    const rowsLength = this.props.tableRowsLength || defaults.defaultTableRows
 
     return (
       <div className="ruc-container">

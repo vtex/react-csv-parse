@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 
 import { fileExtensionIsValid } from "../utils"
-import { globalVars } from "../constants.js"
+import { defaults } from "../constants.js"
 
 import { intlShape, injectIntl } from "react-intl"
 import {
@@ -40,7 +40,7 @@ class Form extends React.Component {
     const file = event.target.files[0]
     // this.props.fileChanged && this.props.fileChanged()
 
-    if (file && fileExtensionIsValid(file, globalVars.allowedExtensions)) {
+    if (file && fileExtensionIsValid(file, defaults.allowedExtensions)) {
       this.setState({ fileStatus: "", fileName: file.name })
       this.formatFileResult(file)
     } else {
@@ -178,7 +178,7 @@ class Form extends React.Component {
 
         <label htmlFor="ruc-file" className="ruc-form-filelabel">
           {this.translate("import.form.importfile", {
-            extensions: globalVars.allowedExtensions,
+            extensions: defaults.allowedExtensions,
           })}
         </label>
 
