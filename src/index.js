@@ -15,18 +15,6 @@ import {
 } from "ramda"
 
 class CsvParse extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      data: null,
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.formatFileResult(nextProps.file, nextProps.fileHeaders)
-  }
-
   formatFileResult(file, fileHeaders) {
     const reader = new FileReader()
     reader.readAsText(file)
@@ -43,7 +31,7 @@ class CsvParse extends React.Component {
       result = result.split(",")
 
       // create arrays at each headers' length string
-      result = splitEvery(this.props.fileHeaders.length, result)
+      result = splitEvery(fileHeaders.length, result)
 
       // drop last item if empty
       if (isEmpty(last(result)[0])) {
@@ -60,17 +48,24 @@ class CsvParse extends React.Component {
       result = compose(apply(lift(zipObj)), splitAt(1))(result)
 
       // save it all in state
-      this.setState({ data: result })
+      this.props.onDataUploaded(result)
     }
   }
 
+  handleOnChange = event => {
+    const file = event.target.files[0]
+    this.formatFileResult(file, this.props.fileHeaders)
+  }
+
   render() {
-    return this.props.children(this.state.data)
+    return this.props.render(this.handleOnChange)
   }
 }
 
 CsvParse.propTypes = {
   children: PropTypes.func.isRequired,
+  fileHeaders: PropTypes.array,
+  onDataUploaded: PropTypes.func.isRequired,
 }
 
 export default CsvParse

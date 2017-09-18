@@ -1,0 +1,21 @@
+Account (read-only)	Balance (read-only)	Document (read-only)	Document Type (read-only)	Credit limit	Last Update (read-only)	Description (read-only)	Email (read-only)	Visible credit limit (read-only)
+ambienteqa	34080	144.433.857-999	CPF	0	2017-05-11T19:38:17.9964469Z		foo@bar.com	0
+ambienteqa	120	550066	CPF	120	2017-08-01T15:20:58.3358488Z		foo@bar.com	120
+ambienteqa	90	777999531	CPF	90	2017-08-04T13:54:18.4089478Z		foo@bar.com	90
+ambienteqa	220	123.456.778-01	CPF	240	2017-08-07T17:40:12.8552797Z		test@test.com	240
+ambienteqa	0	556677788	CPF	0	2017-08-21T13:01:05.2280273Z		foo@bar.com	0
+ambienteqa	0	5566742456	CPF	0	2017-08-21T13:01:05.2280273Z		foo@bar.com	0
+ambienteqa	220	123.456.778-11	CPF	240	2017-08-21T13:01:05.2280273Z		test@test.com	240
+ambienteqa	0	556.676.676-7676	CPF	0	2017-08-21T13:01:05.2280273Z		foo@bar.com	0
+ambienteqa	0	435.652.211-11111	CPF	0	2017-08-21T13:01:05.2280273Z		foo@bar.com	0
+ambienteqa	171.4285714286	994.400.631-117777	CPF	171.4285714286	2017-08-22T22:05:52.4294294Z		foo@bar.com	171.4285714286
+ambienteqa	200	999.995.555-333ss1	CPF	200	2017-08-23T13:50:35.1368502Z		foo@bar.com	200
+ambienteqa	600	999.995.555-3331	CPF	600	2017-08-23T13:51:37.2810363Z		foo@bar.com	600
+ambienteqa	100	994.400.631-113333	CPF	100	2017-08-23T23:56:29.2173738Z		foo@bar.com	100
+ambienteqa	99990	11111111111	Other	100000	2017-08-24T15:57:57.4227658Z		testrunner@gmail.com	100000
+ambienteqa	0	999.995.555-33322	CPF	0	2017-08-25T14:28:04.7460977Z		foo@bar.com	0
+ambienteqa	0	999.995.555-33344	CPF	0	2017-08-25T14:30:28.7789056Z		foo@bar.com	0
+ambienteqa	0	999.995.455-33456	CPF	0	2017-08-28T17:44:54.835415Z		foo@bar.com	0
+ambienteqa	1939	061.003.267-43	CPF	2395	2017-09-13T19:17:35.9697041Z		foo@bar.com	2395
+ambienteqa	0	123.456.789-10	CPF	0	2017-09-18T17:10:26.8738001Z		foo@bar.com	0
+ambienteqa	240	144.433.857-999	CPF	240	2017-09-18T17:39:41.7873198Z		foo@bar.com	240

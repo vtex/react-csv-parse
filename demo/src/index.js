@@ -12,8 +12,7 @@ class Demo extends React.Component {
     }
   }
 
-  handleFileInputChange = event => {
-    const data = event.target.files[0]
+  handleData = data => {
     this.setState({ data })
   }
 
@@ -29,20 +28,20 @@ class Demo extends React.Component {
       "email",
       "visibleCreditLimit",
     ]
-    const demoStyles = {
-      whiteSpace: "pre-wrap",
-    }
 
     return (
       <div>
-        <h1>React csv parse</h1>
-        <h2>Demo</h2>
-        <input type="file" onChange={this.handleFileInputChange} />
+        <h1>Demo React Csv Parse</h1>
 
-        <CsvParse file={this.state.data} fileHeaders={fileHeaders}>
-          {data =>
-            data && <code style={demoStyles}>{JSON.stringify(data)}</code>}
-        </CsvParse>
+        <CsvParse
+          fileHeaders={fileHeaders}
+          onDataUploaded={this.handleData}
+          render={onChange => <input type="file" onChange={onChange} />}
+        />
+
+        {this.state.data && (
+          <pre>{JSON.stringify(this.state.data, null, 2)}</pre>
+        )}
       </div>
     )
   }
