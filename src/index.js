@@ -2,15 +2,15 @@ import React from "react"
 import PropTypes from "prop-types"
 
 import {
-  isEmpty,
-  splitEvery,
-  last,
-  slice,
-  dropLast,
-  compose,
   apply,
+  compose,
+  dropLast,
+  isEmpty,
+  last,
   lift,
+  slice,
   splitAt,
+  splitEvery,
   zipObj,
 } from "ramda"
 
@@ -24,10 +24,10 @@ class CsvParse extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.formatFileResult(nextProps.file, nextProps.apiKeys)
+    this.formatFileResult(nextProps.file, nextProps.fileHeaders)
   }
 
-  formatFileResult(file, apiKeys) {
+  formatFileResult(file, fileHeaders) {
     const reader = new FileReader()
     reader.readAsText(file)
     reader.onload = () => {
@@ -43,7 +43,7 @@ class CsvParse extends React.Component {
       result = result.split(",")
 
       // create arrays at each headers' length string
-      result = splitEvery(this.props.apiKeys.length, result)
+      result = splitEvery(this.props.fileHeaders.length, result)
 
       // drop last item if empty
       if (isEmpty(last(result)[0])) {
@@ -54,7 +54,7 @@ class CsvParse extends React.Component {
       result.shift()
 
       // add api headers
-      result.unshift(apiKeys)
+      result.unshift(fileHeaders)
 
       // convert arrays to objects
       result = compose(apply(lift(zipObj)), splitAt(1))(result)

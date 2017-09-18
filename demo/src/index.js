@@ -3,23 +3,18 @@ import { render } from "react-dom"
 
 import CsvParse from "../../src"
 
-import ReactTable from "react-table"
-import "react-table/react-table.css"
-import SyntaxHighlighter from "react-syntax-highlighter"
-import { docco } from "react-syntax-highlighter/dist/styles"
-
 class Demo extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      file: null,
+      data: null,
     }
   }
 
   handleFileInputChange = event => {
-    const file = event.target.files[0]
-    this.setState({ file })
+    const data = event.target.files[0]
+    this.setState({ data })
   }
 
   render() {
@@ -34,44 +29,9 @@ class Demo extends React.Component {
       "email",
       "visibleCreditLimit",
     ]
-    const tableColumns = [
-      {
-        Header: "Account",
-        accessor: "account",
-      },
-      {
-        Header: "Balance",
-        accessor: "balance",
-      },
-      {
-        Header: "Document",
-        accessor: "document",
-      },
-      {
-        Header: "Document Type",
-        accessor: "documentType",
-      },
-      {
-        Header: "Credit Limit",
-        accessor: "creditLimit",
-      },
-      {
-        Header: "Last Update",
-        accessor: "lastUpdate",
-      },
-      {
-        Header: "Description",
-        accessor: "description",
-      },
-      {
-        Header: "Email",
-        accessor: "email",
-      },
-      {
-        Header: "Visible Credit Limit",
-        accessor: "visibleCreditLimit",
-      },
-    ]
+    const demoStyles = {
+      whiteSpace: "pre-wrap",
+    }
 
     return (
       <div>
@@ -79,30 +39,9 @@ class Demo extends React.Component {
         <h2>Demo</h2>
         <input type="file" onChange={this.handleFileInputChange} />
 
-        <CsvParse file={this.state.file} apiKeys={fileHeaders}>
+        <CsvParse file={this.state.data} fileHeaders={fileHeaders}>
           {data =>
-            data && (
-              <div>
-                <p>
-                  <strong>Raw data:</strong>
-                </p>
-                <SyntaxHighlighter
-                  language="json"
-                  style={docco}
-                  showLineNumbers
-                >
-                  {JSON.stringify(data)}
-                </SyntaxHighlighter>
-                <p>
-                  <strong>Data in table:</strong>
-                </p>
-                <ReactTable
-                  data={data}
-                  defaultPageSize={10}
-                  columns={tableColumns}
-                />
-              </div>
-            )}
+            data && <code style={demoStyles}>{JSON.stringify(data)}</code>}
         </CsvParse>
       </div>
     )

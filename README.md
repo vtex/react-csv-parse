@@ -23,7 +23,7 @@ const fileHeaders = [
   "header5",
 ]
 
-<CsvParse file={this.state.file} apiKeys={fileHeaders}>
+<CsvParse file={this.state.file} fileHeaders={fileHeaders}>
   {data => data && <div>{JSON.stringify(data)}</div>}
 </CsvParse>
 ```
@@ -98,7 +98,7 @@ render() {
     <div>
       <input type="file" onChange={this.handleFileInputChange} />
 
-      <CsvParse file={this.state.file} apiKeys={fileHeaders}>
+      <CsvParse file={this.state.file} fileHeaders={fileHeaders}>
         {data =>
           data && (
             <ReactTable
@@ -118,4 +118,4 @@ Complete example in the `/demo` folder.
 
 `file` the file to be parsed.
 
-`apiKeys` the headers of the file's columns.
+`fileHeaders` the headers of the file's columns.
