@@ -1,7 +1,7 @@
 {
-  "name": "react-upload-csv",
+  "name": "react-csv-parse",
   "version": "1.0.0",
-  "description": "react-upload-csv React component",
+  "description": "react-csv-parse React component",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "ramda": "^0.24.1",
-    "react-intl": "^2.4.0",
+    "react-syntax-highlighter": "^5.7.0",
     "react-table": "^6.5.3"
   },
   "peerDependencies": {

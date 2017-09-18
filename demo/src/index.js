@@ -1,75 +1,110 @@
 import React from "react"
 import { render } from "react-dom"
 
-import { IntlProvider, addLocaleData } from "react-intl"
-import en from "react-intl/locale-data/en"
-import pt from "react-intl/locale-data/pt"
-import enUSMessages from "../i18n/en-US_messages.json"
+import CsvParse from "../../src"
 
-import ReactUploadCsv from "../../src"
-
-addLocaleData([...en, ...pt])
+import ReactTable from "react-table"
+import "react-table/react-table.css"
+import SyntaxHighlighter from "react-syntax-highlighter"
+import { docco } from "react-syntax-highlighter/dist/styles"
 
 class Demo extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      file: null,
+    }
+  }
+
+  handleFileInputChange = event => {
+    const file = event.target.files[0]
+    this.setState({ file })
+  }
+
   render() {
-    const fileColumns = [
+    const fileHeaders = [
+      "account",
+      "balance",
+      "document",
+      "documentType",
+      "creditLimit",
+      "lastUpdate",
+      "description",
+      "email",
+      "visibleCreditLimit",
+    ]
+    const tableColumns = [
       {
-        Header: "Email",
-        sortable: false,
-        accessor: "email",
-        Cell: data => <div className="rt-td-inner">{data.value}</div>,
-      },
-      {
-        Header: "Document",
-        sortable: false,
-        accessor: "document",
-        Cell: data => <div className="rt-td-inner">{data.value}</div>,
-      },
-      {
-        Header: "Document type",
-        sortable: false,
-        accessor: "documentType",
-        Cell: data => <div className="rt-td-inner">{data.value}</div>,
+        Header: "Account",
+        accessor: "account",
       },
       {
         Header: "Balance",
-        sortable: false,
         accessor: "balance",
-        Cell: data => <div className="rt-td-inner">{data.value}</div>,
       },
       {
-        Header: "Credit limit",
-        sortable: false,
+        Header: "Document",
+        accessor: "document",
+      },
+      {
+        Header: "Document Type",
+        accessor: "documentType",
+      },
+      {
+        Header: "Credit Limit",
         accessor: "creditLimit",
-        Cell: data => <div className="rt-td-inner">{data.value}</div>,
       },
       {
-        Header: "Last update",
-        sortable: false,
+        Header: "Last Update",
         accessor: "lastUpdate",
-        Cell: data => <div className="rt-td-inner">{data.value}</div>,
+      },
+      {
+        Header: "Description",
+        accessor: "description",
+      },
+      {
+        Header: "Email",
+        accessor: "email",
+      },
+      {
+        Header: "Visible Credit Limit",
+        accessor: "visibleCreditLimit",
       },
     ]
 
     return (
-      <IntlProvider locale="en-US" key="en-US" messages={enUSMessages}>
-        <ReactUploadCsv
-          tableId="tableId"
-          tableRowsLength={10}
-          tableColumns={fileColumns}
-          apiKeys={[
-            "account",
-            "balance",
-            "document",
-            "documentType",
-            "creditLimit",
-            "lastUpdate",
-            "description",
-            "email",
-            "visibleCreditLimit",
-          ]}
-        />
-      </IntlProvider>
+      <div>
+        <h1>React csv parse</h1>
+        <h2>Demo</h2>
+        <input type="file" onChange={this.handleFileInputChange} />
+
+        <CsvParse file={this.state.file} apiKeys={fileHeaders}>
+          {data =>
+            data && (
+              <div>
+                <p>
+                  <strong>Raw data:</strong>
+                </p>
+                <SyntaxHighlighter
+                  language="json"
+                  style={docco}
+                  showLineNumbers
+                >
+                  {JSON.stringify(data)}
+                </SyntaxHighlighter>
+                <p>
+                  <strong>Data in table:</strong>
+                </p>
+                <ReactTable
+                  data={data}
+                  defaultPageSize={10}
+                  columns={tableColumns}
+                />
+              </div>
+            )}
+        </CsvParse>
+      </div>
     )
   }
 }
