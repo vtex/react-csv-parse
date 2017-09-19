@@ -1,51 +1,71 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-import Form from "./components/Form"
-import Table from "./components/Table"
+import {
+  apply,
+  compose,
+  dropLast,
+  isEmpty,
+  last,
+  lift,
+  slice,
+  splitAt,
+  splitEvery,
+  zipObj,
+} from "ramda"
 
-import "./styles/input-form.css"
-import "react-table/react-table.css"
+class CsvParse extends React.Component {
+  formatFileResult(file, fileHeaders) {
+    const reader = new FileReader()
+    reader.readAsText(file)
+    reader.onload = () => {
+      let result = reader.result
 
-class ReactUploadCsv extends React.Component {
-  constructor(props) {
-    super(props)
+      // replace line breaks and tabs by commas (delimiters)
+      result = result.replace(/[\r\n\t]/g, ",")
 
-    this.state = {
-      tableData: [],
-      tableDataDisplay: [],
+      // remove double quotes
+      result = result.replace(/"/g, "")
+
+      // split string by comma character
+      result = result.split(",")
+
+      // create arrays at each headers' length string
+      result = splitEvery(fileHeaders.length, result)
+
+      // drop last item if empty
+      if (isEmpty(last(result)[0])) {
+        result = dropLast(1, result)
+      }
+
+      // remove display headers IF NEEDED (HOW?)
+      result.shift()
+
+      // add api headers
+      result.unshift(fileHeaders)
+
+      // convert arrays to objects
+      result = compose(apply(lift(zipObj)), splitAt(1))(result)
+
+      // save it all in state
+      this.props.onDataUploaded(result)
     }
   }
 
-  setDataToTable = (tableData, tableDataDisplay) => {
-    this.setState({ tableData, tableDataDisplay })
+  handleOnChange = event => {
+    const file = event.target.files[0]
+    this.formatFileResult(file, this.props.fileHeaders)
   }
 
   render() {
-    return (
-      <div className="ruc-container">
-        <Form
-          apiKeys={this.props.apiKeys}
-          tableRowsLength={this.props.tableRowsLength || 10}
-          setDataToTable={this.setDataToTable}
-        />
-        <Table
-          tableId={this.props.tableId}
-          tableRowsLength={this.props.tableRowsLength || 10}
-          tableColumns={this.props.tableColumns}
-          tableDataDisplay={this.state.tableDataDisplay}
-          tableData={this.state.tableData}
-        />
-      </div>
-    )
+    return this.props.render(this.handleOnChange)
   }
 }
 
-ReactUploadCsv.propTypes = {
-  tableId: PropTypes.string.isRequired,
-  apiKeys: PropTypes.array.isRequired,
-  tableRowsLength: PropTypes.number,
-  tableColumns: PropTypes.array.isRequired,
+CsvParse.propTypes = {
+  children: PropTypes.func.isRequired,
+  fileHeaders: PropTypes.array,
+  onDataUploaded: PropTypes.func.isRequired,
 }
 
-export default ReactUploadCsv
+export default CsvParse

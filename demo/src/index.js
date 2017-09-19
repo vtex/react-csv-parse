@@ -1,75 +1,48 @@
 import React from "react"
 import { render } from "react-dom"
 
-import { IntlProvider, addLocaleData } from "react-intl"
-import en from "react-intl/locale-data/en"
-import pt from "react-intl/locale-data/pt"
-import enUSMessages from "../i18n/en-US_messages.json"
-
-import ReactUploadCsv from "../../src"
-
-addLocaleData([...en, ...pt])
+import CsvParse from "../../src"
 
 class Demo extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      data: null,
+    }
+  }
+
+  handleData = data => {
+    this.setState({ data })
+  }
+
   render() {
-    const fileColumns = [
-      {
-        Header: "Email",
-        sortable: false,
-        accessor: "email",
-        Cell: data => <div className="rt-td-inner">{data.value}</div>,
-      },
-      {
-        Header: "Document",
-        sortable: false,
-        accessor: "document",
-        Cell: data => <div className="rt-td-inner">{data.value}</div>,
-      },
-      {
-        Header: "Document type",
-        sortable: false,
-        accessor: "documentType",
-        Cell: data => <div className="rt-td-inner">{data.value}</div>,
-      },
-      {
-        Header: "Balance",
-        sortable: false,
-        accessor: "balance",
-        Cell: data => <div className="rt-td-inner">{data.value}</div>,
-      },
-      {
-        Header: "Credit limit",
-        sortable: false,
-        accessor: "creditLimit",
-        Cell: data => <div className="rt-td-inner">{data.value}</div>,
-      },
-      {
-        Header: "Last update",
-        sortable: false,
-        accessor: "lastUpdate",
-        Cell: data => <div className="rt-td-inner">{data.value}</div>,
-      },
+    const fileHeaders = [
+      "account",
+      "balance",
+      "document",
+      "documentType",
+      "creditLimit",
+      "lastUpdate",
+      "description",
+      "email",
+      "visibleCreditLimit",
     ]
 
     return (
-      <IntlProvider locale="en-US" key="en-US" messages={enUSMessages}>
-        <ReactUploadCsv
-          tableId="tableId"
-          tableRowsLength={10}
-          tableColumns={fileColumns}
-          apiKeys={[
-            "account",
-            "balance",
-            "document",
-            "documentType",
-            "creditLimit",
-            "lastUpdate",
-            "description",
-            "email",
-            "visibleCreditLimit",
-          ]}
+      <div>
+        <h1>Demo React Csv Parse</h1>
+
+        <CsvParse
+          fileHeaders={fileHeaders}
+          onDataUploaded={this.handleData}
+          render={onChange => <input type="file" onChange={onChange} />}
         />
-      </IntlProvider>
+
+        {this.state.data && (
+          <pre>{JSON.stringify(this.state.data, null, 2)}</pre>
+        )}
+      </div>
     )
   }
 }
