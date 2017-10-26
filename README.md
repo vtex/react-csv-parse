@@ -10,6 +10,13 @@ Development structure: (github.com/insin/nwb)[https://github.com/insin/nwb]
 npm install --save react-csv-parse
 ```
 
+## Development
+`npm install -g nwb`
+
+`nwb build`
+
+Local test: `npm pack`
+
 ## Usage
 
 ```js
