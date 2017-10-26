@@ -46,4 +46,4 @@ render() {
 calls the child function and renders that. Wrap everything in
 `<CsvParse>{/* your function here! */}</CsvParse>`.
 
-`fileHeaders` are mandatory.
+Props `fileHeaders` and `onDataUploaded` are mandatory.

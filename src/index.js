@@ -63,8 +63,7 @@ class CsvParse extends React.Component {
 }
 
 CsvParse.propTypes = {
-  children: PropTypes.func.isRequired,
-  fileHeaders: PropTypes.array,
+  fileHeaders: PropTypes.array.isRequired,
   onDataUploaded: PropTypes.func.isRequired,
 }
 
