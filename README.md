@@ -1,26 +1,29 @@
 # React Csv Parse
 
 Parse content of a csv file.
+
 Inspiration: (paypal/downshift)[https://github.com/paypal/downshift]
+
 Development structure: (github.com/insin/nwb)[https://github.com/insin/nwb]
+
+## Development
+Requirement: `npm install -g nwb`
+
+Build: `nwb build`
+
+Local test: `npm pack`
+
+Publish to npm: `npm publish --access public`
 
 ## Installation
 
 ```
-npm install --save react-csv-parse
+npm install @vtex/react-csv-parse --save
 ```
 
-## Development
-`npm install -g nwb`
-
-`nwb build`
-
-Local test: `npm pack`
-
 ## Usage
-
 ```js
-import CsvParse from "CsvParse"
+import CsvParse from '@vtex/react-csv-parse'
 ```
 
 ```jsx
@@ -54,3 +57,7 @@ calls the child function and renders that. Wrap everything in
 `<CsvParse>{/* your function here! */}</CsvParse>`.
 
 Props `fileHeaders` and `onDataUploaded` are mandatory.
+
+## Live example(s):
+
+- Credit Control Admin: https://github.com/vtex/credit-control-admin-ui
