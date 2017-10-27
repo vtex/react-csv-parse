@@ -1,7 +1,7 @@
 # React Csv Parse
 
 Parse content of a csv file.
-Inspiration: (paypal/downshift)[https://raw.githubusercontent.com/paypal/downshift]
+Inspiration: (paypal/downshift)[https://github.com/paypal/downshift]
 Development structure: (github.com/insin/nwb)[https://github.com/insin/nwb]
 
 ## Installation
