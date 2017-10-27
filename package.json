@@ -1,6 +1,6 @@
 {
   "name": "react-csv-parse",
-  "version": "1.0.3-beta",
+  "version": "1.0.3-beta.0",
   "description": "react-csv-parse React component",
   "main": "lib/index.js",
   "module": "es/index.js",
