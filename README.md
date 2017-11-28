@@ -57,7 +57,3 @@ calls the child function and renders that. Wrap everything in
 `<CsvParse>{/* your function here! */}</CsvParse>`.
 
 Props `fileHeaders` and `onDataUploaded` are mandatory.
-
-## Live example(s):
-
-- Credit Control Admin: https://github.com/vtex/credit-control-admin-ui
