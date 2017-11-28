@@ -14,6 +14,8 @@ import {
   zipObj,
 } from "ramda"
 
+const delimiter = ","
+
 class CsvParse extends React.Component {
   formatFileResult(file, fileHeaders) {
     const reader = new FileReader()
@@ -22,7 +24,7 @@ class CsvParse extends React.Component {
       let result = reader.result
 
       // replace line breaks and tabs by commas (delimiters)
-      result = result.replace(/[\r\n\t]/g, ",")
+      result = result.replace(/[\r\n\t]/g, delimiter)
 
       // remove double quotes
       result = result.replace(/"/g, "")
@@ -40,12 +42,15 @@ class CsvParse extends React.Component {
 
       // remove display headers IF NEEDED (HOW?)
       result.shift()
+      console.log(result)
 
       // add api headers
       result.unshift(fileHeaders)
+      console.log(result)
 
       // convert arrays to objects
       result = compose(apply(lift(zipObj)), splitAt(1))(result)
+      console.log(result)
 
       // save it all in state
       this.props.onDataUploaded(result)
