@@ -14,8 +14,6 @@ import {
   zipObj,
 } from 'ramda'
 
-const delimiter = ","
-
 class CsvParse extends React.Component {
   formatFileResult(file) {
     const delimiters = this.props.delimiters
