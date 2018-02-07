@@ -71,4 +71,4 @@ calls the child function and renders that. Wrap everything in
 
 ### _Delimiter rule_
 
-The component will estimate that if the amount of delimiters found is equal or above the `fileHeaders` lenght, then it will process the file. This does not guarantee a correct parsing but rather tries to add a small level of security.
+The component will estimate that if the amount of delimiters found is equal or above the `fileHeaders` length, then it will process the file. This does not guarantee a correct parsing but rather tries to add a small level of security.
