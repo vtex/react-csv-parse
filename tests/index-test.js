@@ -1,23 +1,22 @@
-import expect from 'expect'
 import React from 'react'
-import {render, unmountComponentAtNode} from 'react-dom'
+import expect from 'expect'
+import { renderToStaticMarkup as render } from 'react-dom/server'
 
-import Component from 'src/'
+import CsvParse from 'src/'
 
-describe('Component', () => {
-  let node
+const mockFunc = () => true
+const fileHeaders = ['account', 'balance']
 
-  beforeEach(() => {
-    node = document.createElement('div')
-  })
-
-  afterEach(() => {
-    unmountComponentAtNode(node)
-  })
-
-  it('displays a welcome message', () => {
-    render(<Component/>, node, () => {
-      expect(node.innerHTML).toContain('Welcome to React components')
-    })
+describe('CsvParse', () => {
+  it('renders an input with type="file"', () => {
+    expect(
+      render(
+        <CsvParse
+          fileHeaders={fileHeaders}
+          onDataUploaded={mockFunc}
+          render={onChange => <input type="file" />}
+        />
+      )
+    ).toContain('<input type="file"/>')
   })
 })
