@@ -68,3 +68,7 @@ calls the child function and renders that. Wrap everything in
 | `fileHeaders`    | array |              | true     | The headers (usually used by api) of the file. Order is crucial.        |
 | `onDataUploaded` | func  |              | true     | Callback function with the data as parameter. Null if the parse failed. |
 | `delimiters`     | array | `[";", ","]` | false    | The file will be tested with those characters to split the data.        |
+
+### _Delimiter rule_
+
+The component will estimate that if the amount of delimiters found is equal or above the `fileHeaders` lenght, then it will process the file. This does not guarantee a correct parsing but rather tries to add a small level of security.
