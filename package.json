@@ -23,19 +23,19 @@
     "url": "git://github.com:vtex/react-csv-parse.git"
   },
   "dependencies": {
-    "ramda": "^0.24.1"
+    "ramda": "^0.25.0"
   },
   "peerDependencies": {
     "react": "15.x"
   },
   "devDependencies": {
     "babel-plugin-ramda": "^1.4.3",
-    "nwb": "0.18.x",
+    "expect": "^22.2.0",
+    "nwb": "^0.21.5",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   },
   "author": "",
-  "homepage": "",
   "license": "MIT",
   "keywords": [
     "react-component"
