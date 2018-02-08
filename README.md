@@ -1,30 +1,73 @@
 # React Csv Parse
 
-Parse content of a csv file.
+Goal: Parse content of a csv file.
 
-Inspiration: (paypal/downshift)[https://github.com/paypal/downshift]
+From:
 
-Development structure: (github.com/insin/nwb)[https://github.com/insin/nwb]
+```
+Account,Balance,Document,Document Type,Limit,Description,Email
+acc1,0,3i563784658,cpf,2000,,k@email.com
+acc2,10,3468723468,cpf,10000,Some text,j@email.com
+```
+
+To:
+
+```
+[
+  {
+    account: "acc1",
+    balance: "0",
+    document: "3i563784658",
+    documentType: "cpf",
+    limit: "2000",
+    description: "",
+    email: "k@gmail.com"
+  },
+  {
+    account: "acc2",
+    balance: "10",
+    document: "3468723468",
+    documentType: "cpf",
+    limit: "10000",
+    description: "Some text",
+    email: "j@email.com"
+  }
+]
+```
+
+Using "api headers":
+
+```
+const fileHeaders = [
+  'account',
+  'balance',
+  'document',
+  'documentType',
+  'limit',
+  'description',
+  'email'
+]
+```
+
+Inspiration: [paypal/downshift](https://github.com/paypal/downshift)
+
+Development structure: [github.com/insin/nwb](https://github.com/insin/nwb)
 
 ## Development
 
-Requirement: `npm install -g nwb`
+| Action         | Command                       |
+| -------------- | ----------------------------- |
+| Install        | `npm i -g nwb & npm i`        |
+| Start          | `npm start`                   |
+| Build          | `nwb build`                   |
+| Local test     | `npm pack`                    |
+| Publish to npm | `npm publish --access public` |
 
-Start: `npm start`
-
-Build: `nwb build`
-
-Local test: `npm pack`
-
-Publish to npm: `npm publish --access public`
-
-## Installation
+## Usage
 
 ```
 npm install @vtex/react-csv-parse --save
 ```
-
-## Usage
 
 ```js
 import CsvParse from '@vtex/react-csv-parse'
@@ -49,7 +92,7 @@ render() {
   return (
     <CsvParse
       fileHeaders={fileHeaders}
-      delimiters={[';', '/', ':']}
+      separators={[',', ';']}
       onDataUploaded={this.handleData}
       render={onChange => <input type="file" onChange={onChange} />}
     />
@@ -67,8 +110,10 @@ calls the child function and renders that. Wrap everything in
 | ---------------- | ----- | ------------ | -------- | ----------------------------------------------------------------------- |
 | `fileHeaders`    | array |              | true     | The headers (usually used by api) of the file. Order is crucial.        |
 | `onDataUploaded` | func  |              | true     | Callback function with the data as parameter. Null if the parse failed. |
-| `delimiters`     | array | `[";", ","]` | false    | The file will be tested with those characters to split the data.        |
+| `separators`     | array | `[",", ";"]` | false    | The file will be tested with those characters to separate the data.     |
 
-### _Delimiter rule_
+### _Data split rules_
 
-The component will estimate that if the amount of delimiters found is equal or above the `fileHeaders` length, then it will process the file. This does not guarantee a correct parsing but rather tries to add a small level of security.
+* If the first character found is not alpha numeric, then it's a text delimiter. We'll then find the position of the second delimiter to grab the next charatcer that will be used as separator.
+
+* If not, the component will guess the separator by "saying" that if the amount of separators found is equal or above the `fileHeaders` length, then it will process the file. This does not guarantee a correct parsing but rather tries to add a second level of security.

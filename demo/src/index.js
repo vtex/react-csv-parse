@@ -18,7 +18,7 @@ class Demo extends React.Component {
   }
 
   render() {
-    const fileHeaders = [
+    const apiHeaders = [
       'account',
       'balance',
       'document',
@@ -36,8 +36,8 @@ class Demo extends React.Component {
         <h1>Demo React Csv Parse</h1>
 
         <CsvParse
-          fileHeaders={fileHeaders}
-          delimiters={[';', ',', ':']}
+          apiHeaders={apiHeaders}
+          separators={[';', ',', ':']}
           onDataUploaded={this.handleData}
           render={onChange => <input type="file" onChange={onChange} />}
         />

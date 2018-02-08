@@ -14,38 +14,58 @@ import {
   zipObj,
 } from 'ramda'
 
-class CsvParse extends React.Component {
-  formatFileResult(file) {
-    const delimiters = this.props.delimiters
-    const reader = new FileReader()
+// NOTES
+// Separator is the character splitting the data. Comma ex.: 1,2,3
+// Delimiter is a text delimiter. Double quotes ex.: "Account", "Id"
 
+class CsvParse extends React.Component {
+  handleSeparators(file) {
+    const reader = new FileReader()
     reader.readAsText(file)
     reader.onload = () => {
       let result = reader.result
+      const splitResult = result.split('')
 
-      delimiters.some((val, i) => {
-        const dynamicRegEx = new RegExp(delimiters[i], 'g')
-        const delimitersFound = (result.match(dynamicRegEx) || []).length
+      // check if first character is not alphanumeric
+      if (!splitResult[0].match(/^[a-z0-9]+$/i, 'g')) {
+        // get index of second delimiter
+        const secondDelimiterIndex = result.indexOf(splitResult[0], 1)
 
-        if (delimitersFound >= this.props.fileHeaders.length) {
-          this.handleResult(result, delimiters[i])
-          return true
-        } else if (i === delimiters.length - 1) {
-          this.props.onDataUploaded(null)
-        }
-      })
+        // separator is character after second delimiter
+        let separator = result[secondDelimiterIndex + 1]
+
+        // clean text delimiters
+        const delimiter = splitResult[0]
+        const dynamicRegEx = new RegExp(delimiter, 'g')
+        result = result.replace(dynamicRegEx, '')
+
+        // start parsing
+        this.parseData(result, separator)
+      } else {
+        // first character is alphanum, guessing the separator
+        this.props.separators.some((val, i) => {
+          const dynamicRegEx = new RegExp(this.props.separators[i], 'g')
+          const separatorsFound = (result.match(dynamicRegEx) || []).length
+          if (separatorsFound >= this.props.apiHeaders.length) {
+            this.parseData(result, this.props.separators[i])
+            return true
+          } else if (i === this.props.separators.length - 1) {
+            this.props.onDataUploaded(null)
+          }
+        })
+      }
     }
   }
 
-  handleResult(result, delimiter) {
-    // replace line breaks and tabs by delimiter
-    result = result.replace(/[\r\n\t]/g, delimiter)
+  parseData(result, separator) {
+    // replace line breaks and tabs by separator
+    result = result.replace(/[\r\n\t]/g, separator)
 
-    // split string by delimiter
-    result = result.split(delimiter)
+    // split string by separator
+    result = result.split(separator)
 
     // create arrays at each headers' length string
-    result = splitEvery(this.props.fileHeaders.length, result)
+    result = splitEvery(this.props.apiHeaders.length, result)
 
     // drop last item if empty
     if (isEmpty(last(result)[0])) {
@@ -56,7 +76,7 @@ class CsvParse extends React.Component {
     result.shift()
 
     // add api headers
-    result.unshift(this.props.fileHeaders)
+    result.unshift(this.props.apiHeaders)
 
     // convert arrays to objects
     result = compose(apply(lift(zipObj)), splitAt(1))(result)
@@ -67,7 +87,7 @@ class CsvParse extends React.Component {
 
   handleOnChange = event => {
     const file = event.target.files[0]
-    this.formatFileResult(file)
+    this.handleSeparators(file)
   }
 
   render() {
@@ -76,13 +96,13 @@ class CsvParse extends React.Component {
 }
 
 CsvParse.defaultProps = {
-  delimiters: [';', ','],
+  separators: [',', ';'],
 }
 
 CsvParse.propTypes = {
-  fileHeaders: PropTypes.array.isRequired,
+  apiHeaders: PropTypes.array.isRequired,
   onDataUploaded: PropTypes.func.isRequired,
-  delimiters: PropTypes.array,
+  separators: PropTypes.array,
 }
 
 export default CsvParse
