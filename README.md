@@ -108,7 +108,7 @@ calls the child function and renders that. Wrap everything in
 
 | Prop name        | Type  | Default      | Required | Description                                                             |
 | ---------------- | ----- | ------------ | -------- | ----------------------------------------------------------------------- |
-| `keys`           | array |              | true     | The headers (usually used by api) of the file. Order is crucial.        |
+| `keys`           | array |              | true     | The keys used to create the objects.                                    |
 | `onDataUploaded` | func  |              | true     | Callback function with the data as parameter. Null if the parse failed. |
 | `separators`     | array | `[",", ";"]` | false    | The file will be tested with those characters to separate the data.     |
 
