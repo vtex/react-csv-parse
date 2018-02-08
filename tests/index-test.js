@@ -5,14 +5,14 @@ import { renderToStaticMarkup as render } from 'react-dom/server'
 import CsvParse from 'src/'
 
 const mockFunc = () => true
-const fileHeaders = ['account', 'balance']
+const keys = ['account', 'balance']
 
 describe('CsvParse', () => {
   it('renders an input with type="file"', () => {
     expect(
       render(
         <CsvParse
-          fileHeaders={fileHeaders}
+          keys={keys}
           onDataUploaded={mockFunc}
           render={onChange => <input type="file" />}
         />
