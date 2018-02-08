@@ -1,6 +1,5 @@
 import React from 'react'
 import { render } from 'react-dom'
-
 import CsvParse from '../../src'
 
 class Demo extends React.Component {
@@ -14,11 +13,13 @@ class Demo extends React.Component {
   }
 
   handleData = data => {
-    data ? this.setState({ data }) : this.setState({ error: true })
+    data
+      ? this.setState({ data, error: false })
+      : this.setState({ error: true })
   }
 
   render() {
-    const apiHeaders = [
+    const keys = [
       'account',
       'balance',
       'document',
@@ -36,7 +37,7 @@ class Demo extends React.Component {
         <h1>Demo React Csv Parse</h1>
 
         <CsvParse
-          apiHeaders={apiHeaders}
+          keys={keys}
           separators={[';', ',', ':']}
           onDataUploaded={this.handleData}
           render={onChange => <input type="file" onChange={onChange} />}

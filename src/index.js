@@ -46,7 +46,7 @@ class CsvParse extends React.Component {
         this.props.separators.some((val, i) => {
           const dynamicRegEx = new RegExp(this.props.separators[i], 'g')
           const separatorsFound = (result.match(dynamicRegEx) || []).length
-          if (separatorsFound >= this.props.apiHeaders.length) {
+          if (separatorsFound >= this.props.keys.length) {
             this.parseData(result, this.props.separators[i])
             return true
           } else if (i === this.props.separators.length - 1) {
@@ -65,7 +65,7 @@ class CsvParse extends React.Component {
     result = result.split(separator)
 
     // create arrays at each headers' length string
-    result = splitEvery(this.props.apiHeaders.length, result)
+    result = splitEvery(this.props.keys.length, result)
 
     // drop last item if empty
     if (isEmpty(last(result)[0])) {
@@ -76,7 +76,7 @@ class CsvParse extends React.Component {
     result.shift()
 
     // add api headers
-    result.unshift(this.props.apiHeaders)
+    result.unshift(this.props.keys)
 
     // convert arrays to objects
     result = compose(apply(lift(zipObj)), splitAt(1))(result)
@@ -100,7 +100,7 @@ CsvParse.defaultProps = {
 }
 
 CsvParse.propTypes = {
-  apiHeaders: PropTypes.array.isRequired,
+  keys: PropTypes.array.isRequired,
   onDataUploaded: PropTypes.func.isRequired,
   separators: PropTypes.array,
 }

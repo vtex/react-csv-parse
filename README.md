@@ -35,10 +35,10 @@ To:
 ]
 ```
 
-Using "api headers":
+Given the following keys:
 
 ```
-const fileHeaders = [
+const keys = [
   'account',
   'balance',
   'document',
@@ -81,7 +81,7 @@ handleData = data => {
 
 ```jsx
 render() {
-  const fileHeaders = [
+  const keys = [
     "header1",
     "header2",
     "header3",
@@ -91,7 +91,7 @@ render() {
 
   return (
     <CsvParse
-      fileHeaders={fileHeaders}
+      keys={keys}
       separators={[',', ';']}
       onDataUploaded={this.handleData}
       render={onChange => <input type="file" onChange={onChange} />}
@@ -108,7 +108,7 @@ calls the child function and renders that. Wrap everything in
 
 | Prop name        | Type  | Default      | Required | Description                                                             |
 | ---------------- | ----- | ------------ | -------- | ----------------------------------------------------------------------- |
-| `fileHeaders`    | array |              | true     | The headers (usually used by api) of the file. Order is crucial.        |
+| `keys`           | array |              | true     | The headers (usually used by api) of the file. Order is crucial.        |
 | `onDataUploaded` | func  |              | true     | Callback function with the data as parameter. Null if the parse failed. |
 | `separators`     | array | `[",", ";"]` | false    | The file will be tested with those characters to separate the data.     |
 
@@ -116,4 +116,4 @@ calls the child function and renders that. Wrap everything in
 
 * If the first character found is not alpha numeric, then it's a text delimiter. We'll then find the position of the second delimiter to grab the next charatcer that will be used as separator.
 
-* If not, the component will guess the separator by "saying" that if the amount of separators found is equal or above the `fileHeaders` length, then it will process the file. This does not guarantee a correct parsing but rather tries to add a second level of security.
+* If not, the component will guess the separator by "saying" that if the amount of separators found is equal or above the `keys` length, then it will process the file. This does not guarantee a correct parsing but rather tries to add a second level of security.
