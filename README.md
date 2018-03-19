@@ -114,6 +114,6 @@ calls the child function and renders that. Wrap everything in
 
 ### _Data split rules_
 
-* If the first character found is not alpha numeric, then it's a text delimiter. We'll then find the position of the second delimiter to grab the next charatcer that will be used as separator.
+* If the first character found is not alpha numeric, then it's a text delimiter. We'll then find the position of the second delimiter to grab the next character that will be used as separator.
 
 * If not, the component will guess the separator by "saying" that if the amount of separators found is equal or above the `keys` length, then it will process the file. This does not guarantee a correct parsing but rather tries to add a second level of security.
