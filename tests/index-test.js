@@ -2,7 +2,7 @@ import React from 'react'
 import expect from 'expect'
 import { renderToStaticMarkup as render } from 'react-dom/server'
 
-import CsvParse from 'src/'
+import CsvParse from '../src/'
 
 const mockFunc = () => true
 const keys = ['account', 'balance']
@@ -15,8 +15,8 @@ describe('CsvParse', () => {
           keys={keys}
           onDataUploaded={mockFunc}
           render={onChange => <input type="file" />}
-        />
-      )
+        />,
+      ),
     ).toContain('<input type="file"/>')
   })
 })
