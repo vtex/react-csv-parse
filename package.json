@@ -1,6 +1,6 @@
 {
   "name": "@vtex/react-csv-parse",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "react-csv-parse React component",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -23,6 +23,7 @@
     "url": "git://github.com:vtex/react-csv-parse.git"
   },
   "dependencies": {
+    "papaparse": "^4.5.0",
     "ramda": "^0.25.0"
   },
   "peerDependencies": {

@@ -2,6 +2,8 @@
 
 Goal: Parse content of a csv file.
 
+## Example
+
 From:
 
 ```
@@ -92,8 +94,8 @@ render() {
   return (
     <CsvParse
       keys={keys}
-      separators={[',', ';']}
       onDataUploaded={this.handleData}
+      onError={this.handleError}
       render={onChange => <input type="file" onChange={onChange} />}
     />
   )
@@ -106,14 +108,12 @@ calls the child function and renders that. Wrap everything in
 
 ## Props
 
-| Prop name        | Type  | Default      | Required | Description                                                             |
-| ---------------- | ----- | ------------ | -------- | ----------------------------------------------------------------------- |
-| `keys`           | array |              | true     | The keys used to create the objects.                                    |
-| `onDataUploaded` | func  |              | true     | Callback function with the data as parameter. Null if the parse failed. |
-| `separators`     | array | `[",", ";"]` | false    | The file will be tested with those characters to separate the data.     |
+| Prop name        | Type  | Default | Required | Description                                                                    |
+| ---------------- | ----- | ------- | -------- | ------------------------------------------------------------------------------ |
+| `keys`           | array |         | true     | The keys used to create the objects.                                           |
+| `onDataUploaded` | func  |         | true     | Callback function with the data parsed as parameter.                           |
+| `onError`        | func  |         | false    | Callback function with the following data: `{ err, file, inputElem, reason }`. |
 
-### _Data split rules_
+### Data split rules
 
-* If the first character found is not alpha numeric, then it's a text delimiter. We'll then find the position of the second delimiter to grab the next character that will be used as separator.
-
-* If not, the component will guess the separator by "saying" that if the amount of separators found is equal or above the `keys` length, then it will process the file. This does not guarantee a correct parsing but rather tries to add a second level of security.
+Based on [Papaparse](https://github.com/mholt/PapaParse).

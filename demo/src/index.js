@@ -8,14 +8,16 @@ class Demo extends React.Component {
 
     this.state = {
       data: null,
-      error: false,
+      error: null,
     }
   }
 
   handleData = data => {
-    data
-      ? this.setState({ data, error: false })
-      : this.setState({ error: true })
+    this.setState({ data })
+  }
+
+  handleError = error => {
+    this.setState({ error })
   }
 
   render() {
@@ -26,8 +28,10 @@ class Demo extends React.Component {
       'documentType',
       'creditLimit',
       'lastUpdate',
+      'createdAt',
       'description',
       'availableBalance',
+      'preAuthorizedBalance',
       'email',
       'tolerance',
     ]
@@ -38,8 +42,8 @@ class Demo extends React.Component {
 
         <CsvParse
           keys={keys}
-          separators={[';', ',', ':']}
           onDataUploaded={this.handleData}
+          onError={this.handleError}
           render={onChange => <input type="file" onChange={onChange} />}
         />
 
@@ -47,7 +51,9 @@ class Demo extends React.Component {
           <pre>{JSON.stringify(this.state.data, null, 2)}</pre>
         )}
 
-        {this.state.error && <p>File could not be parsed.</p>}
+        {this.state.error && (
+          <pre>{JSON.stringify(this.state.error, null, 2)}</pre>
+        )}
       </div>
     )
   }
