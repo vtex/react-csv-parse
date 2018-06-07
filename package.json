@@ -1,6 +1,6 @@
 {
   "name": "@vtex/react-csv-parse",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "react-csv-parse React component",
   "main": "lib/index.js",
   "module": "es/index.js",
