@@ -76,8 +76,8 @@ import CsvParse from '@vtex/react-csv-parse'
 ```
 
 ```jsx
-handleData = data => {
-  this.setState({ data })
+handleData = (data, meta) => {
+  this.setState({ data, meta })
 }
 ```
 
@@ -93,7 +93,7 @@ render() {
 
   return (
     <CsvParse
-      keys={keys}
+      keys={keys} // remove if you want firstline as header
       onDataUploaded={this.handleData}
       onError={this.handleError}
       render={onChange => <input type="file" onChange={onChange} />}
@@ -110,8 +110,8 @@ calls the child function and renders that. Wrap everything in
 
 | Prop name        | Type  | Default | Required | Description                                                                    |
 | ---------------- | ----- | ------- | -------- | ------------------------------------------------------------------------------ |
-| `keys`           | array |         | true     | The keys used to create the objects.                                           |
-| `onDataUploaded` | func  |         | true     | Callback function with the data parsed as parameter.                           |
+| `keys`           | array |         | false    | The keys used to create the objects otherwise use firstline as header.         |
+| `onDataUploaded` | func  |         | true     | Callback function with the data and meta parsed as parameter.                  |
 | `onError`        | func  |         | false    | Callback function with the following data: `{ err, file, inputElem, reason }`. |
 
 ### Data split rules

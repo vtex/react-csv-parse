@@ -7,23 +7,26 @@ import { apply, compose, lift, splitAt, zipObj } from 'ramda'
 class CsvParse extends React.Component {
   handleFile = event => {
     const file = event.target.files[0]
-    const keys = this.props.keys
+    const keys = this.props.keys 
     const onDataUploaded = this.props.onDataUploaded
     const onError = this.props.onError
 
     Papa.parse(file, {
       skipEmptyLines: true,
-      error: function(err, file, inputElem, reason) {
+      error: function (err, file, inputElem, reason) {
         onError({ err, file, inputElem, reason })
       },
-      complete: function(results) {
+      complete: function (results) {
         const data = results.data
+        const meta = results.meta
 
-        // remove display headers
-        data.shift()
+        if (keys) {
+          // remove display headers
+          data.shift()
 
-        // add api headers
-        data.unshift(keys)
+          // add api headers
+          data.unshift(keys)
+        }
 
         // convert arrays to objects
         const formatedResult = compose(
@@ -32,7 +35,7 @@ class CsvParse extends React.Component {
         )(data)
 
         // send result to state
-        onDataUploaded(formatedResult)
+        onDataUploaded(formatedResult, meta)
       },
     })
   }
@@ -43,7 +46,7 @@ class CsvParse extends React.Component {
 }
 
 CsvParse.propTypes = {
-  keys: PropTypes.array.isRequired,
+  keys: PropTypes.array,
   onDataUploaded: PropTypes.func.isRequired,
   onError: PropTypes.func,
 }

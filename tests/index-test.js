@@ -19,4 +19,15 @@ describe('CsvParse', () => {
       ),
     ).toContain('<input type="file"/>')
   })
+
+  it('renders an input with type="file" without "keys"', () => {
+    expect(
+      render(
+        <CsvParse
+          onDataUploaded={mockFunc}
+          render={onChange => <input type="file" />}
+        />,
+      ),
+    ).toContain('<input type="file"/>')
+  })
 })

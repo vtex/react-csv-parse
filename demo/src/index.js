@@ -12,12 +12,12 @@ class Demo extends React.Component {
     }
   }
 
-  handleData = data => {
-    this.setState({ data })
+  handleData = (data, meta) => {
+    this.setState({ data, meta })
   }
 
   handleError = error => {
-    this.setState({ error })
+    this.setState({ error, data: null, meta: null })
   }
 
   render() {
@@ -40,6 +40,7 @@ class Demo extends React.Component {
       <div>
         <h1>Demo React Csv Parse</h1>
 
+        <h2>With keys</h2>
         <CsvParse
           keys={keys}
           onDataUploaded={this.handleData}
@@ -47,10 +48,24 @@ class Demo extends React.Component {
           render={onChange => <input type="file" onChange={onChange} />}
         />
 
+        <h2>Without specific keys</h2>
+        <CsvParse
+          onDataUploaded={this.handleData}
+          onError={this.handleError}
+          render={onChange => <input type="file" onChange={onChange} />}
+        />
+
+        <h2>Data</h2>
         {this.state.data && (
           <pre>{JSON.stringify(this.state.data, null, 2)}</pre>
         )}
 
+        <h2>Meta</h2>
+        {this.state.meta && (
+          <pre>{JSON.stringify(this.state.meta, null, 2)}</pre>
+        )}
+
+        <h2>Error</h2>
         {this.state.error && (
           <pre>{JSON.stringify(this.state.error, null, 2)}</pre>
         )}
